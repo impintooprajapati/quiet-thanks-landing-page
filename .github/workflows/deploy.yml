@@ -1,0 +1,37 @@
+name: Deploy Website to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 'stable'
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Build Jaspr Static Website
+        run: |
+          dart pub global activate jaspr_cli
+          export PATH="$PATH":"$HOME/.pub-cache/bin"
+          jaspr build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build/jaspr --project-name=${{ vars.CF_PAGES_PROJECT_NAME || 'quiet-thanks' }}
