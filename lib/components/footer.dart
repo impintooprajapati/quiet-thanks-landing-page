@@ -19,39 +19,43 @@ class Footer extends StatelessComponent {
                 alt: 'Quiet Thanks Logo',
                 classes: 'brand-icon',
               ),
-              span([text(AppStrings.appName)]),
+              span([Component.text(AppStrings.appName)]),
             ]),
-            p(classes: 'footer-tagline', [
-              text(AppStrings.tagline),
-            ]),
+            p(classes: 'footer-tagline', [Component.text(AppStrings.tagline)]),
           ]),
 
           // Links
           div(classes: 'footer-links', [
-            a(href: '#features', classes: 'footer-link', [text(AppStrings.navFeatures)]),
-            a(
-              href: AppStrings.privacyPolicyUrl,
-              classes: 'footer-link',
-              [text(AppStrings.navPrivacy)],
-            ),
+            a(href: '#faq', classes: 'footer-link', [Component.text('FAQ')]),
+            a(href: AppStrings.supportMailto, classes: 'footer-link', [
+              Component.text('Contact'),
+            ]),
+            a(href: '#features', classes: 'footer-link', [
+              Component.text(AppStrings.navFeatures),
+            ]),
+            a(href: AppStrings.privacyPolicyUrl, classes: 'footer-link', [
+              Component.text(AppStrings.navPrivacy),
+            ]),
             a(
               href: AppStrings.playStoreUrl,
               target: Target.blank,
+              attributes: {'rel': 'noopener noreferrer'},
               classes: 'footer-link',
-              [text('Google Play')],
+              [Component.text('Google Play')],
             ),
           ]),
         ]),
 
         // Bottom row
         div(classes: 'footer-bottom', [
-          p([text(AppStrings.copyright)]),
+          p([Component.text(AppStrings.copyright)]),
           p(classes: 'developer-tag', [
-            text('Crafted with intention by '),
+            Component.text('Crafted with intention by '),
             a(
               href: AppStrings.authorUrl,
               target: Target.blank,
-              [text(AppStrings.authorName)],
+              attributes: {'rel': 'noopener noreferrer'},
+              [Component.text(AppStrings.authorName)],
             ),
           ]),
         ]),

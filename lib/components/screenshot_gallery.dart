@@ -1,36 +1,13 @@
+import 'dart:convert';
+
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
 import '../constants/strings.dart';
 
-class ScreenshotGallery extends StatefulComponent {
+// Render the preview data once; the small browser script handles selection.
+class ScreenshotGallery extends StatelessComponent {
   const ScreenshotGallery({super.key});
-
-  @override
-  State<ScreenshotGallery> createState() => _ScreenshotGalleryState();
-}
-
-class _ScreenshotGalleryState extends State<ScreenshotGallery> {
-  int _selectedIndex = 0;
-
-  void _selectTab(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void _nextScreen() {
-    setState(() {
-      _selectedIndex = (_selectedIndex + 1) % AppStrings.screenshots.length;
-    });
-  }
-
-  void _prevScreen() {
-    setState(() {
-      _selectedIndex = (_selectedIndex - 1 + AppStrings.screenshots.length) %
-          AppStrings.screenshots.length;
-    });
-  }
 
   String _getTabIcon(String id) {
     switch (id) {
@@ -51,158 +28,163 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
 
   @override
   Component build(BuildContext context) {
-    final active = AppStrings.screenshots[_selectedIndex];
+    final active = AppStrings.screenshots[0];
     final bullets = (active['bullets'] as List<dynamic>?) ?? [];
 
-    return section(id: 'screenshots', classes: 'section gallery-section', [
-      div(classes: 'container', [
-        // Header
-        div(classes: 'section-header', [
-          span(classes: 'section-tag', [text(AppStrings.screenshotsTag)]),
-          h2(classes: 'section-title', [text(AppStrings.screenshotsHeading)]),
-          p(classes: 'section-subtitle', [
-            text('Experience the calm, private space where your thoughts and gratitude live.'),
-          ]),
-        ]),
-
-        // Interactive Category Filter Tabs
-        div(
-          classes: 'gallery-tabs',
-          AppStrings.screenshots.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final item = entry.value;
-            final isSelected = idx == _selectedIndex;
-            return button(
-              type: ButtonType.button,
-              classes: 'gallery-tab-btn ${isSelected ? "active" : ""}',
-              events: {'click': (_) => _selectTab(idx)},
-              [
-                raw(_getTabIcon(item['id'] as String? ?? '')),
-                span([text(item['title'] as String)]),
-              ],
-            );
-          }).toList(),
-        ),
-
-        // Interactive Feature Spotlight Stage
-        div(classes: 'spotlight-stage', [
-          // Left: Narrative & Key Bullets
-          div(classes: 'spotlight-content', [
-            div(classes: 'spotlight-badge', [
-              div(classes: 'badge-dot', []),
-              span([text(active['tag'] as String? ?? 'App Feature')]),
+    return section(
+      id: 'screenshots',
+      classes: 'section gallery-section',
+      attributes: {'data-screens': jsonEncode(AppStrings.screenshots)},
+      [
+        div(classes: 'container', [
+          // Header
+          div(classes: 'section-header', [
+            span(classes: 'section-tag', [
+              Component.text(AppStrings.screenshotsTag),
             ]),
-            h3(classes: 'spotlight-title', [text(active['title'] as String)]),
-            h4(classes: 'spotlight-headline', [text(active['headline'] as String)]),
-            p(classes: 'spotlight-desc', [text(active['description'] as String)]),
+            h2(classes: 'section-title', [
+              Component.text(AppStrings.screenshotsHeading),
+            ]),
+            p(classes: 'section-subtitle', [
+              Component.text(
+                'Experience the calm, private space where your thoughts and gratitude live.',
+              ),
+            ]),
+          ]),
 
-            // Bullet points
+          // Interactive Category Filter Tabs
+          div(
+            classes: 'gallery-tabs',
+            AppStrings.screenshots.asMap().entries.map((entry) {
+              final idx = entry.key;
+              final item = entry.value;
+              final isSelected = idx == 0;
+              return button(
+                type: ButtonType.button,
+                classes: 'gallery-tab-btn ${isSelected ? "active" : ""}',
+                attributes: {
+                  'aria-pressed': isSelected.toString(),
+                  'aria-controls': 'preview-content',
+                },
+                [
+                  RawText(_getTabIcon(item['id'] as String? ?? '')),
+                  span([Component.text(item['title'] as String)]),
+                ],
+              );
+            }).toList(),
+          ),
+
+          // Interactive Feature Spotlight Stage
+          div(classes: 'spotlight-stage', [
+            // Left: Narrative & Key Bullets
             div(
-              classes: 'spotlight-bullets',
-              bullets.map((bullet) {
-                return div(classes: 'spotlight-bullet-item', [
-                  div(classes: 'spotlight-bullet-icon', [
-                    raw('''<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'''),
+              id: 'preview-content',
+              classes: 'spotlight-content',
+              attributes: {'aria-live': 'polite', 'aria-atomic': 'true'},
+              [
+                div(classes: 'spotlight-badge', [
+                  div(classes: 'badge-dot', []),
+                  span([
+                    Component.text(active['tag'] as String? ?? 'App Feature'),
                   ]),
-                  span(classes: 'spotlight-bullet-text', [text(bullet as String)]),
-                ]);
-              }).toList(),
+                ]),
+                h3(classes: 'spotlight-title', [
+                  Component.text(active['title'] as String),
+                ]),
+                p(classes: 'spotlight-headline', [
+                  Component.text(active['headline'] as String),
+                ]),
+                p(classes: 'spotlight-desc', [
+                  Component.text(active['description'] as String),
+                ]),
+
+                // Bullet points
+                div(
+                  classes: 'spotlight-bullets',
+                  bullets.map((bullet) {
+                    return div(classes: 'spotlight-bullet-item', [
+                      div(classes: 'spotlight-bullet-icon', [
+                        RawText(
+                          '''<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>''',
+                        ),
+                      ]),
+                      span(classes: 'spotlight-bullet-text', [
+                        Component.text(bullet as String),
+                      ]),
+                    ]);
+                  }).toList(),
+                ),
+
+                // CTA & Nav buttons
+                div(classes: 'spotlight-actions', [
+                  a(
+                    href: AppStrings.playStoreUrl,
+                    target: Target.blank,
+                    attributes: {'rel': 'noopener noreferrer'},
+                    classes: 'btn-primary spotlight-cta-btn',
+                    [
+                      span([Component.text('Explore in App')]),
+                      RawText(
+                        '''<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>''',
+                      ),
+                    ],
+                  ),
+                  div(classes: 'spotlight-nav-controls', [
+                    button(
+                      type: ButtonType.button,
+                      classes: 'spotlight-nav-arrow',
+                      attributes: {'aria-label': 'Previous app screen'},
+                      [
+                        RawText(
+                          '''<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>''',
+                        ),
+                      ],
+                    ),
+                    span(classes: 'spotlight-step-counter', [
+                      Component.text('01 / 0${AppStrings.screenshots.length}'),
+                    ]),
+                    button(
+                      type: ButtonType.button,
+                      classes: 'spotlight-nav-arrow',
+                      attributes: {'aria-label': 'Next app screen'},
+                      [
+                        RawText(
+                          '''<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>''',
+                        ),
+                      ],
+                    ),
+                  ]),
+                ]),
+              ],
             ),
 
-            // CTA & Nav buttons
-            div(classes: 'spotlight-actions', [
-              a(
-                href: AppStrings.playStoreUrl,
-                target: Target.blank,
-                classes: 'btn-primary spotlight-cta-btn',
-                [
-                  span([text('Explore in App')]),
-                  raw('''<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'''),
-                ],
-              ),
-              div(classes: 'spotlight-nav-controls', [
-                button(
-                  type: ButtonType.button,
-                  classes: 'spotlight-nav-arrow',
-                  events: {'click': (_) => _prevScreen()},
-                  [
-                    raw('''<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>'''),
-                  ],
-                ),
-                span(classes: 'spotlight-step-counter', [
-                  text('0${_selectedIndex + 1} / 0${AppStrings.screenshots.length}'),
+            // Right: Large Flagship Smartphone Mockup
+            div(classes: 'spotlight-mockup-col', [
+              div(classes: 'mockup-glow spotlight-glow', []),
+              div(classes: 'phone-frame spotlight-phone', [
+                div(classes: 'phone-button button-left-vol-up', []),
+                div(classes: 'phone-button button-left-vol-down', []),
+                div(classes: 'phone-button button-right-power', []),
+                div(classes: 'phone-speaker-slit', []),
+                div(classes: 'phone-screen-container', [
+                  div(classes: 'phone-glass-glare', []),
+                  img(
+                    src: active['image'] as String,
+                    alt: 'Quiet Thanks - ${active['title']}',
+                    loading: MediaLoading.lazy,
+                    attributes: {
+                      'width': '540',
+                      'height': '1212',
+                      'decoding': 'async',
+                    },
+                    classes: 'phone-screen-img',
+                  ),
                 ]),
-                button(
-                  type: ButtonType.button,
-                  classes: 'spotlight-nav-arrow',
-                  events: {'click': (_) => _nextScreen()},
-                  [
-                    raw('''<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'''),
-                  ],
-                ),
-              ]),
-            ]),
-          ]),
-
-          // Right: Large Flagship Smartphone Mockup
-          div(classes: 'spotlight-mockup-col', [
-            div(classes: 'mockup-glow spotlight-glow', []),
-            div(classes: 'phone-frame spotlight-phone', [
-              div(classes: 'phone-button button-left-vol-up', []),
-              div(classes: 'phone-button button-left-vol-down', []),
-              div(classes: 'phone-button button-right-power', []),
-              div(classes: 'phone-speaker-slit', []),
-              div(classes: 'phone-screen-container', [
-                div(classes: 'phone-glass-glare', []),
-                img(
-                  src: active['image'] as String,
-                  alt: 'Quiet Thanks - ${active['title']}',
-                  loading: MediaLoading.eager,
-                  classes: 'phone-screen-img',
-                ),
               ]),
             ]),
           ]),
         ]),
-
-        // Interactive Thumbnail Strip
-        div(classes: 'gallery-strip-header', [
-          h4([text('All App Perspectives')]),
-          span([text('Click any screen to spotlight')]),
-        ]),
-        div(
-          classes: 'gallery-filmstrip',
-          AppStrings.screenshots.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final item = entry.value;
-            final isCurrent = idx == _selectedIndex;
-
-            return div(
-              classes: 'filmstrip-card ${isCurrent ? "active" : ""}',
-              events: {'click': (_) => _selectTab(idx)},
-              [
-                div(classes: 'filmstrip-phone-wrapper', [
-                  div(classes: 'phone-frame filmstrip-phone', [
-                    div(classes: 'phone-screen-container', [
-                      img(
-                        src: item['image'] as String,
-                        alt: 'Quiet Thanks - ${item['title']}',
-                        loading: MediaLoading.lazy,
-                        classes: 'phone-screen-img',
-                      ),
-                    ]),
-                  ]),
-                ]),
-                div(classes: 'filmstrip-meta', [
-                  div(classes: 'filmstrip-num', [text('0${idx + 1}')]),
-                  h5(classes: 'filmstrip-title', [text(item['title'] as String)]),
-                  p(classes: 'filmstrip-sub', [text(item['subtitle'] as String)]),
-                ]),
-              ],
-            );
-          }).toList(),
-        ),
-      ]),
-    ]);
+      ],
+    );
   }
 }

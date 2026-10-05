@@ -29,6 +29,9 @@ jobs:
           export PATH="$PATH":"$HOME/.pub-cache/bin"
           jaspr build
 
+      - name: Validate generated site
+        run: python3 tool/check_site.py
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

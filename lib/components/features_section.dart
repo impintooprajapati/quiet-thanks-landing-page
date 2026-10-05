@@ -31,20 +31,37 @@ class FeaturesSection extends StatelessComponent {
       div(classes: 'container', [
         // Section Header
         div(classes: 'section-header', [
-          span(classes: 'section-tag', [text(AppStrings.featuresTag)]),
-          h2(classes: 'section-title', [text(AppStrings.featuresHeading)]),
+          span(classes: 'section-tag', [
+            Component.text(AppStrings.featuresTag),
+          ]),
+          h2(classes: 'section-title', [
+            Component.text(AppStrings.featuresHeading),
+          ]),
+          p(classes: 'section-subtitle', [
+            Component.text(
+              'A few thoughtful tools to help you notice, remember, and reflect.',
+            ),
+          ]),
         ]),
 
         // Features Grid (3x2)
         div(
           classes: 'features-grid',
-          AppStrings.featuresList.map((item) {
+          AppStrings.featuresList.asMap().entries.map((entry) {
+            final item = entry.value;
             return div(classes: 'feature-card', [
+              span(
+                classes: 'feature-number',
+                attributes: {'aria-hidden': 'true'},
+                [Component.text('0${entry.key + 1}')],
+              ),
               div(classes: 'feature-icon-box', [
-                raw(_getFeatureSvg(item['icon'] ?? '')),
+                RawText(_getFeatureSvg(item['icon'] ?? '')),
               ]),
-              h3(classes: 'feature-card-title', [text(item['title']!)]),
-              p(classes: 'feature-card-desc', [text(item['desc']!)]),
+              h3(classes: 'feature-card-title', [
+                Component.text(item['title']!),
+              ]),
+              p(classes: 'feature-card-desc', [Component.text(item['desc']!)]),
             ]);
           }).toList(),
         ),

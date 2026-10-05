@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quiethanks.impintooprajapati.in/sitemap.xml

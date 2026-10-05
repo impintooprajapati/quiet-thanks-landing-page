@@ -4,3 +4,5 @@ build/
 .pub/
 pubspec.lock
 *.options.dart
+
+__pycache__/
