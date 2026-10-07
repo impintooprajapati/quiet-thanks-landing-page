@@ -10,6 +10,7 @@ dart pub get
 jaspr build
 dart analyze
 python3 tool/check_site.py
+node --test tool/interactions.test.cjs
 python3 tool/preview.py
 ```
 
@@ -37,3 +38,12 @@ verify live indexing or guarantee search rankings or rich results.
 
 Reference: [Google Search Central](https://developers.google.com/search/docs/appearance/structured-data/software-app)
 and [Cloudflare route behavior](https://developers.cloudflare.com/pages/configuration/serving-pages/).
+
+## Interaction and motion behavior
+
+Hero entrances run once; section entrances run once when they enter the viewport.
+Content stays visible without animation support. All scripted and CSS motion respects
+`prefers-reduced-motion`, including preference changes during a running transition.
+The app preview supports arrow keys, Home, and End. Images decode before a selection
+is committed; only the latest request may update the preview. The interaction tests
+cover rapid selection, cancellation, failed images, keyboard wraparound, and reduced motion.

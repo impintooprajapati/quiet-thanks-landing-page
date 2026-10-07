@@ -30,7 +30,9 @@ jobs:
           jaspr build
 
       - name: Validate generated site
-        run: python3 tool/check_site.py
+        run: |
+          python3 tool/check_site.py
+          node --test tool/interactions.test.cjs
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

@@ -22,33 +22,37 @@ class Navbar extends StatelessComponent {
         ]),
 
         // Desktop nav links
-        nav(classes: 'nav-links-desktop', [
-          a(href: '#features', classes: 'nav-link', [
-            Component.text(AppStrings.navFeatures),
-          ]),
-          a(href: '#privacy', classes: 'nav-link', [
-            Component.text(AppStrings.navPrivacy),
-          ]),
-          a(href: '#how-it-works', classes: 'nav-link', [
-            Component.text(AppStrings.navHowItWorks),
-          ]),
-          a(href: '#screenshots', classes: 'nav-link', [
-            Component.text(AppStrings.navScreenshots),
-          ]),
-          a(
-            href: AppStrings.playStoreUrl,
-            target: Target.blank,
-            attributes: {'rel': 'noopener noreferrer'},
-            classes: 'btn-primary nav-cta-btn',
-            [
-              span([Component.text(AppStrings.navGetApp)]),
-              // Play store small arrow icon
-              RawText(
-                '''<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>''',
-              ),
-            ],
-          ),
-        ]),
+        nav(
+          classes: 'nav-links-desktop',
+          attributes: {'aria-label': 'Main navigation'},
+          [
+            a(href: '#features', classes: 'nav-link', [
+              Component.text(AppStrings.navFeatures),
+            ]),
+            a(href: '#privacy', classes: 'nav-link', [
+              Component.text(AppStrings.navPrivacy),
+            ]),
+            a(href: '#how-it-works', classes: 'nav-link', [
+              Component.text(AppStrings.navHowItWorks),
+            ]),
+            a(href: '#screenshots', classes: 'nav-link', [
+              Component.text(AppStrings.navScreenshots),
+            ]),
+            a(
+              href: AppStrings.playStoreUrl,
+              target: Target.blank,
+              attributes: {'rel': 'noopener noreferrer'},
+              classes: 'btn-primary nav-cta-btn',
+              [
+                span([Component.text(AppStrings.navGetApp)]),
+                // Play store small arrow icon
+                RawText(
+                  '''<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>''',
+                ),
+              ],
+            ),
+          ],
+        ),
 
         // Mobile Hamburger button
         button(
@@ -68,32 +72,37 @@ class Navbar extends StatelessComponent {
       ]),
 
       // Mobile Drawer Menu
-      div(id: 'mobile-navigation', classes: 'mobile-drawer', [
-        a(href: '#features', classes: 'nav-link', [
-          Component.text(AppStrings.navFeatures),
-        ]),
-        a(href: '#privacy', classes: 'nav-link', [
-          Component.text(AppStrings.navPrivacy),
-        ]),
-        a(href: '#how-it-works', classes: 'nav-link', [
-          Component.text(AppStrings.navHowItWorks),
-        ]),
-        a(href: '#screenshots', classes: 'nav-link', [
-          Component.text(AppStrings.navScreenshots),
-        ]),
-        a(
-          href: AppStrings.playStoreUrl,
-          target: Target.blank,
-          attributes: {'rel': 'noopener noreferrer'},
-          classes: 'btn-primary',
-          [
-            span([Component.text(AppStrings.ctaGetQuietThanks)]),
-            RawText(
-              '''<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>''',
-            ),
-          ],
-        ),
-      ]),
+      nav(
+        id: 'mobile-navigation',
+        classes: 'mobile-drawer',
+        attributes: {'aria-label': 'Mobile navigation', 'inert': ''},
+        [
+          a(href: '#features', classes: 'nav-link', [
+            Component.text(AppStrings.navFeatures),
+          ]),
+          a(href: '#privacy', classes: 'nav-link', [
+            Component.text(AppStrings.navPrivacy),
+          ]),
+          a(href: '#how-it-works', classes: 'nav-link', [
+            Component.text(AppStrings.navHowItWorks),
+          ]),
+          a(href: '#screenshots', classes: 'nav-link', [
+            Component.text(AppStrings.navScreenshots),
+          ]),
+          a(
+            href: AppStrings.playStoreUrl,
+            target: Target.blank,
+            attributes: {'rel': 'noopener noreferrer'},
+            classes: 'btn-primary',
+            [
+              span([Component.text(AppStrings.ctaGetQuietThanks)]),
+              RawText(
+                '''<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>''',
+              ),
+            ],
+          ),
+        ],
+      ),
     ]);
   }
 }

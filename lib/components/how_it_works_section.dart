@@ -8,8 +8,8 @@ class HowItWorksSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return section(id: 'how-it-works', classes: 'section', [
-      div(classes: 'container', [
+    return section(id: 'how-it-works', classes: 'section routine-section', [
+      div(classes: 'container routine-inner', [
         div(classes: 'section-header', [
           span(classes: 'section-tag', [
             Component.text(AppStrings.howItWorksTag),

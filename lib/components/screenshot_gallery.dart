@@ -55,6 +55,10 @@ class ScreenshotGallery extends StatelessComponent {
           // Interactive Category Filter Tabs
           div(
             classes: 'gallery-tabs',
+            attributes: {
+              'role': 'tablist',
+              'aria-label': 'Explore app screens',
+            },
             AppStrings.screenshots.asMap().entries.map((entry) {
               final idx = entry.key;
               final item = entry.value;
@@ -63,7 +67,10 @@ class ScreenshotGallery extends StatelessComponent {
                 type: ButtonType.button,
                 classes: 'gallery-tab-btn ${isSelected ? "active" : ""}',
                 attributes: {
-                  'aria-pressed': isSelected.toString(),
+                  'role': 'tab',
+                  'id': 'screen-tab-$idx',
+                  'aria-selected': isSelected.toString(),
+                  'tabindex': isSelected ? '0' : '-1',
                   'aria-controls': 'preview-content',
                 },
                 [
@@ -74,14 +81,29 @@ class ScreenshotGallery extends StatelessComponent {
             }).toList(),
           ),
 
+          p(
+            classes: 'preview-status sr-only',
+            attributes: {'role': 'status', 'aria-live': 'polite'},
+            [],
+          ),
+          p(classes: 'preview-hint', [
+            Component.text(
+              'Your journal, from every angle. Choose a screen to explore.',
+            ),
+          ]),
+
           // Interactive Feature Spotlight Stage
-          div(classes: 'spotlight-stage', [
-            // Left: Narrative & Key Bullets
-            div(
-              id: 'preview-content',
-              classes: 'spotlight-content',
-              attributes: {'aria-live': 'polite', 'aria-atomic': 'true'},
-              [
+          div(
+            id: 'preview-content',
+            classes: 'spotlight-stage',
+            attributes: {
+              'role': 'tabpanel',
+              'aria-labelledby': 'screen-tab-0',
+              'tabindex': '0',
+            },
+            [
+              // Left: Narrative & Key Bullets
+              div(classes: 'spotlight-content', [
                 div(classes: 'spotlight-badge', [
                   div(classes: 'badge-dot', []),
                   span([
@@ -155,34 +177,34 @@ class ScreenshotGallery extends StatelessComponent {
                     ),
                   ]),
                 ]),
-              ],
-            ),
+              ]),
 
-            // Right: Large Flagship Smartphone Mockup
-            div(classes: 'spotlight-mockup-col', [
-              div(classes: 'mockup-glow spotlight-glow', []),
-              div(classes: 'phone-frame spotlight-phone', [
-                div(classes: 'phone-button button-left-vol-up', []),
-                div(classes: 'phone-button button-left-vol-down', []),
-                div(classes: 'phone-button button-right-power', []),
-                div(classes: 'phone-speaker-slit', []),
-                div(classes: 'phone-screen-container', [
-                  div(classes: 'phone-glass-glare', []),
-                  img(
-                    src: active['image'] as String,
-                    alt: 'Quiet Thanks - ${active['title']}',
-                    loading: MediaLoading.lazy,
-                    attributes: {
-                      'width': '540',
-                      'height': '1212',
-                      'decoding': 'async',
-                    },
-                    classes: 'phone-screen-img',
-                  ),
+              // Right: Large Flagship Smartphone Mockup
+              div(classes: 'spotlight-mockup-col', [
+                div(classes: 'mockup-glow spotlight-glow', []),
+                div(classes: 'phone-frame spotlight-phone', [
+                  div(classes: 'phone-button button-left-vol-up', []),
+                  div(classes: 'phone-button button-left-vol-down', []),
+                  div(classes: 'phone-button button-right-power', []),
+                  div(classes: 'phone-speaker-slit', []),
+                  div(classes: 'phone-screen-container', [
+                    div(classes: 'phone-glass-glare', []),
+                    img(
+                      src: active['image'] as String,
+                      alt: 'Quiet Thanks - ${active['title']}',
+                      loading: MediaLoading.lazy,
+                      attributes: {
+                        'width': '540',
+                        'height': '1212',
+                        'decoding': 'async',
+                      },
+                      classes: 'phone-screen-img',
+                    ),
+                  ]),
                 ]),
               ]),
-            ]),
-          ]),
+            ],
+          ),
         ]),
       ],
     );

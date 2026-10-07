@@ -27,10 +27,10 @@ class FeaturesSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return section(id: 'features', classes: 'section', [
+    return section(id: 'features', classes: 'section features-section', [
       div(classes: 'container', [
         // Section Header
-        div(classes: 'section-header', [
+        div(classes: 'section-header features-header', [
           span(classes: 'section-tag', [
             Component.text(AppStrings.featuresTag),
           ]),
@@ -47,22 +47,68 @@ class FeaturesSection extends StatelessComponent {
         // Features Grid (3x2)
         div(
           classes: 'features-grid',
-          AppStrings.featuresList.asMap().entries.map((entry) {
-            final item = entry.value;
-            return div(classes: 'feature-card', [
-              span(
-                classes: 'feature-number',
-                attributes: {'aria-hidden': 'true'},
-                [Component.text('0${entry.key + 1}')],
-              ),
-              div(classes: 'feature-icon-box', [
-                RawText(_getFeatureSvg(item['icon'] ?? '')),
-              ]),
-              h3(classes: 'feature-card-title', [
-                Component.text(item['title']!),
-              ]),
-              p(classes: 'feature-card-desc', [Component.text(item['desc']!)]),
-            ]);
+          [0, 2, 1, 3, 4, 5].asMap().entries.map((entry) {
+            final item = AppStrings.featuresList[entry.value];
+            return div(
+              classes:
+                  'feature-card ${entry.key < 2 ? 'feature-card-lead' : ''}',
+              [
+                span(
+                  classes: 'feature-number',
+                  attributes: {'aria-hidden': 'true'},
+                  [Component.text('0${entry.key + 1}')],
+                ),
+                div(classes: 'feature-icon-box', [
+                  RawText(_getFeatureSvg(item['icon'] ?? '')),
+                ]),
+                h3(classes: 'feature-card-title', [
+                  Component.text(item['title']!),
+                ]),
+                p(classes: 'feature-card-desc', [
+                  Component.text(item['desc']!),
+                ]),
+                if (entry.key == 0)
+                  div(classes: 'journal-example', [
+                    div(classes: 'example-caption', [
+                      Component.text('A DAY, IN LITTLE MOMENTS'),
+                      span([Component.text('Example')]),
+                    ]),
+                    for (final moment in [
+                      'A slow morning.',
+                      'A kind conversation.',
+                      'A little time outside.',
+                    ])
+                      div(classes: 'example-entry', [
+                        span(
+                          classes: 'example-entry-dot',
+                          attributes: {'aria-hidden': 'true'},
+                          [],
+                        ),
+                        Component.text(moment),
+                        span(
+                          classes: 'example-entry-mark',
+                          attributes: {'aria-hidden': 'true'},
+                          [Component.text('✦')],
+                        ),
+                      ]),
+                  ]),
+                if (entry.key == 1)
+                  div(classes: 'mood-example', [
+                    span(classes: 'example-caption', [
+                      Component.text('A GENTLE CHECK-IN'),
+                    ]),
+                    div(
+                      classes: 'mood-faces',
+                      attributes: {'aria-hidden': 'true'},
+                      [
+                        for (final face in ['☀', '☺', '◡', '☁', '☂'])
+                          span([Component.text(face)]),
+                      ],
+                    ),
+                    p([Component.text('A little room for every feeling.')]),
+                  ]),
+              ],
+            );
           }).toList(),
         ),
       ]),

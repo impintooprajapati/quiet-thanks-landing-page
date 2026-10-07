@@ -31,7 +31,13 @@ class HeroSection extends StatelessComponent {
                 Component.text(AppStrings.heroTitleLine1),
               ]),
               span(classes: 'hero-title-sub', [
-                Component.text(AppStrings.heroTitleLine2),
+                span(classes: 'hero-title-line', [
+                  Component.text('One quiet moment'),
+                ]),
+                Component.text(' '),
+                span(classes: 'hero-title-line', [
+                  Component.text('at a time.'),
+                ]),
               ]),
             ]),
 
@@ -79,6 +85,9 @@ class HeroSection extends StatelessComponent {
           // Right Column: Smartphone Mockup
           div(classes: 'mockup-wrapper', [
             div(classes: 'mockup-glow hero-glow', []),
+            div(classes: 'hero-stage-label', [
+              Component.text('A SPACE THAT’S ONLY YOURS'),
+            ]),
             div(classes: 'hero-orbit', attributes: {'aria-hidden': 'true'}, []),
             div(classes: 'phone-frame hero-phone', [
               div(classes: 'phone-button button-left-vol-up', []),
