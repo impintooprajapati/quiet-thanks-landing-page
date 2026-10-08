@@ -78,7 +78,12 @@ class HeroSection extends StatelessComponent {
                 ]),
             ]),
             p(classes: 'hero-note', [
-              Component.text('Made for Android. No account needed.'),
+              Component.text('Available now on Android. No account needed.'),
+            ]),
+            a(href: '#desktop', classes: 'hero-desktop-link', [
+              span(classes: 'hero-desktop-chip', [Component.text('UP NEXT')]),
+              Component.text('macOS, Windows & Linux'),
+              span(attributes: {'aria-hidden': 'true'}, [Component.text(' ↗')]),
             ]),
           ]),
 

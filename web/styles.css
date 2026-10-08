@@ -781,3 +781,83 @@ section[tabindex='-1']:focus { outline: none; }
   .cta-title { font-size: 2.5rem; }
   .cta-download { padding: 24px; }
 }
+
+/* Desktop is a future chapter; Android remains the available download. */
+.hero-desktop-link { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 24px; color: var(--text-secondary); font-size: .7rem; }
+.hero-desktop-link:hover { color: var(--accent-mint); }
+.hero-desktop-chip { font-size: .5rem; letter-spacing: .12em; padding: 3px 7px; border: 1px solid var(--border-card); border-radius: 5px; color: var(--accent-mint); }
+/* A spacious launch announcement with a legible, explicitly conceptual preview. */
+.desktop-section { padding-top: 12px; }
+.desktop-card { padding: 52px 46px 0; border: 1px solid #c1d9aa29; border-radius: 28px; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #a8c38718, transparent 65%), #19271f; }
+.desktop-intro { text-align: center; max-width: 650px; margin: 0 auto 42px; }
+.desktop-coming-badge { display: inline-flex; align-items: center; gap: 9px; padding: 7px 13px; border: 1px solid #c1d9aa2a; border-radius: 99px; background: #c1d9aa08; font-size: .6rem; letter-spacing: .12em; font-weight: 600; color: var(--accent-mint); margin-bottom: 24px; }
+.desktop-title { font-size: clamp(2.6rem,4.5vw,3.8rem); font-weight: 500; letter-spacing: -.045em; line-height: 1.1; }
+.desktop-title span { display: block; color: var(--accent-mint); font-family: var(--font-serif); font-style: italic; font-weight: 400; margin-top: 8px; }
+.desktop-description { font-size: .94rem; line-height: 1.85; max-width: 510px; margin: 22px auto 0; }
+.desktop-concept { position: relative; max-width: 880px; margin: auto; min-width: 0; }
+.desktop-window { border: 1px solid #a5b39155; border-radius: 14px; background: #101a15; box-shadow: 0 30px 65px #0005, 0 1px 0 #c1d9aa22 inset; overflow: hidden; }
+.desktop-window-bar { display: flex; align-items: center; gap: 18px; padding: 14px 18px; background: #243126; border-bottom: 1px solid var(--border-card); color: var(--text-secondary); font-size: .7rem; }
+.desktop-window-dots { display: flex; gap: 6px; }
+.desktop-window-dots span { width: 8px; height: 8px; border-radius: 50%; background: #83917b; }
+.desktop-window-dots span:first-child { background: #bb9186; }
+.desktop-window-dots span:nth-child(2) { background: #c0b387; }
+.desktop-preview-label { margin-left: auto; color: var(--accent-mint); font-size: .52rem; letter-spacing: .12em; }
+.desktop-window-body { display: grid; grid-template-columns: 170px minmax(0,1fr); }
+.desktop-concept-sidebar { padding: 24px 14px; border-right: 1px solid var(--border-subtle); background: #15231a; display: flex; flex-direction: column; gap: 10px; font-size: .7rem; color: var(--text-muted); }
+.concept-brand { display: flex; align-items: center; gap: 9px; color: var(--text-primary); font-weight: 600; font-size: .65rem; margin-bottom: 22px; }
+.concept-brand img { border-radius: 9px; flex-shrink: 0; }
+.desktop-concept-sidebar > span { padding: 9px 10px; }
+.concept-sidebar-active { background: #c1d9aa14; border: 1px solid #c1d9aa14; border-radius: 7px; color: var(--accent-mint); }
+.concept-sidebar-bottom { margin-top: auto; padding: 24px 8px 0; white-space: pre-line; font-family: var(--font-serif); font-style: italic; font-size: .9rem; line-height: 1.5; }
+.desktop-concept-journal { padding: 30px; min-width: 0; }
+.concept-eyebrow { font-size: .55rem; letter-spacing: .14em; color: var(--accent-mint); }
+.desktop-concept-journal h3 { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(1.65rem,2.5vw,2.1rem); margin: 12px 0 10px; }
+.concept-subtitle { font-size: .7rem; max-width: 400px; margin-bottom: 24px; line-height: 1.8; }
+.concept-journal-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 18px; }
+.concept-note { display: flex; align-items: center; gap: 11px; padding: 17px 14px; margin-bottom: 10px; border: 1px solid var(--border-subtle); background: #1c2b20; border-radius: 10px; font-size: .72rem; color: #dde4d5; }
+.concept-note:last-child { margin-bottom: 0; }
+.concept-note span { color: var(--accent-mint); }
+.concept-prompt { background: #dce0c9; border: 1px solid #dce0c9; border-radius: 12px; padding: 18px 16px; display: flex; flex-direction: column; align-items: flex-start; color: #42583a; }
+.concept-prompt > span:first-child { font-size: 1.7rem; line-height: 1; margin-bottom: 18px; }
+.concept-prompt-label { font-size: .5rem; letter-spacing: .12em; font-weight: 600; margin-bottom: 10px; }
+.concept-prompt p { font-family: var(--font-serif); font-size: 1.12rem; line-height: 1.4; font-style: italic; color: #30452b; }
+.concept-bottom { font-family: var(--font-serif); font-style: italic; font-size: .85rem; color: var(--text-muted); margin-top: 24px; }
+.desktop-concept-caption { text-align: center; font-size: .65rem; line-height: 1.7; margin: 18px 0 32px; color: var(--text-muted); }
+.desktop-release { padding: 28px 0 30px; border-top: 1px solid var(--border-card); }
+.desktop-platforms { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; max-width: 700px; margin: auto; }
+.desktop-platform { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 2px 12px; border: 1px solid var(--border-card); background: #101b1566; border-radius: 12px; padding: 17px 18px; }
+.desktop-platform-icon { grid-row: span 2; display: flex; align-items: center; color: var(--accent-mint); }
+.desktop-platform-name { font-size: .88rem; font-weight: 600; }
+.desktop-platform-status { font-size: .66rem; color: var(--text-muted); }
+.desktop-available { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px 12px; margin-top: 24px; font-size: .76rem; color: var(--text-secondary); text-align: center; }
+.desktop-android-link { color: var(--accent-mint); text-decoration: underline; text-underline-offset: 5px; }
+@media (max-width: 860px) {
+  .desktop-card { padding: 36px 24px 0; }
+  .desktop-window-body { grid-template-columns: 125px minmax(0,1fr); }
+  .concept-brand span { display: none; }
+  .desktop-concept-journal { padding: 24px 18px; }
+  .concept-journal-layout { grid-template-columns: 1fr; }
+  .concept-prompt { display: none; }
+  .desktop-platform { padding: 14px 12px; gap: 4px 8px; }
+}
+@media (max-width: 640px) {
+  .hero-desktop-link { justify-content: center; margin-top: 18px; }
+  .desktop-card { padding: 32px 18px 0; border-radius: 22px; }
+  .desktop-intro { margin-bottom: 28px; }
+  .desktop-title { font-size: 2.45rem; }
+  .desktop-coming-badge { font-size: .49rem; letter-spacing: .06em; padding-inline: 10px; }
+  .desktop-description { font-size: .84rem; margin-top: 18px; }
+  .desktop-window-bar { padding: 12px 10px; gap: 9px; font-size: .58rem; }
+  .desktop-preview-label { font-size: .43rem; letter-spacing: .05em; }
+  .desktop-window-body { grid-template-columns: 1fr; }
+  .desktop-concept-sidebar { display: none; }
+  .desktop-concept-journal { padding: 22px 14px; }
+  .concept-note { padding: 15px 12px; font-size: .68rem; }
+  .desktop-concept-caption { font-size: .59rem; margin-bottom: 24px; }
+  .desktop-platforms { gap: 7px; }
+  .desktop-platform { display: flex; flex-direction: column; text-align: center; padding: 14px 4px; }
+  .desktop-platform-icon { margin-bottom: 8px; }
+  .desktop-platform-name { font-size: .75rem; }
+  .desktop-platform-status { font-size: .57rem; }
+  .desktop-available { font-size: .7rem; }
+}

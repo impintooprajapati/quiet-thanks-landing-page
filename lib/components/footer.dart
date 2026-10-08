@@ -26,6 +26,9 @@ class Footer extends StatelessComponent {
 
           // Links
           div(classes: 'footer-links', [
+            a(href: '#desktop', classes: 'footer-link', [
+              Component.text('Desktop · Soon'),
+            ]),
             a(href: '#faq', classes: 'footer-link', [Component.text('FAQ')]),
             a(href: AppStrings.supportMailto, classes: 'footer-link', [
               Component.text('Contact'),

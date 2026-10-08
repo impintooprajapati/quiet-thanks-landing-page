@@ -2,6 +2,7 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
 import 'components/cta_section.dart';
+import 'components/desktop_section.dart';
 import 'components/features_section.dart';
 import 'components/footer.dart';
 import 'components/faq_section.dart';
@@ -32,6 +33,7 @@ class App extends StatelessComponent {
           const HowItWorksSection(),
           const ScreenshotGallery(),
           const PrivacySection(),
+          const DesktopSection(),
           const FaqSection(),
           const CtaSection(),
         ],
